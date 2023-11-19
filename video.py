@@ -3,7 +3,6 @@ import os
 
 def decomposeVideo(file_path, images_folder, frame_no):
     vidcap = cv2.VideoCapture(file_path)
-    vidcap.set(2,frame_no)
     success,image = vidcap.read()
     count = 0
 
