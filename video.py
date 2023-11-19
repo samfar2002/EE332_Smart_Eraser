@@ -8,7 +8,7 @@ def decomposeVideo(file_path, images_folder, frame_no):
 
     while success:
         zeros = 4 - len(str(count))
-        cv2.imwrite(images_folder + "\\" + "0"*zeros + str(count) + '.jpg', image)     
+        cv2.imwrite(images_folder + "\\frame" + "0"*zeros + str(count) + '.jpg', image)     
         success,image = vidcap.read()
         count += 1
         
