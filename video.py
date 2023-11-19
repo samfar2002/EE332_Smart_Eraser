@@ -1,12 +1,15 @@
 import cv2
 import os
 
-def decomposeVideo(file_path):
+def decomposeVideo(file_path, images_folder, frame_no):
     vidcap = cv2.VideoCapture(file_path)
+    vidcap.set(2,frame_no)
     success,image = vidcap.read()
     count = 0
+
     while success:
-        cv2.imwrite("original_frames\\frame%d.jpg" % count, image)     # save frame as JPEG file      
+        zeros = 4 - len(str(count))
+        cv2.imwrite(images_folder + "\\" + "0"*zeros + str(count) + '.jpg', image)     
         success,image = vidcap.read()
         count += 1
         
