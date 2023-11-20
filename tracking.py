@@ -11,4 +11,15 @@ def find_pen():
 
     for x in range(wid):
         for y in range(60):
-            if image[x][y][2]
+            if image[x][y][2] > 200:
+                if x < xmin:
+                    xmin = x
+                if y < ymin:
+                    ymin = y
+                if x > xmax:
+                    xmax = x
+                if y > ymax:
+                    ymax = y
+    
+    cv2.rectangle(image, (xmin, ymin), (xmax, ymax), (255,255,255))
+    cv2.imwrite("result.jpg", image)
