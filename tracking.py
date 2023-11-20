@@ -7,11 +7,19 @@ def find_pen():
     xmin = wid
     ymin = hgt
     xmax = 0
-    ymax = 0
+    ymax = 60
 
     for x in range(wid):
         for y in range(60):
-            if image[x][y][2] > 200:
+            r = image[y][x][2]
+            g = image[y][x][0]
+            b = image[y][x][1]
+            if (r+g+b) == 0:
+                normalized_r = 0
+            else:
+                normalized_r = r/(r+g+b)
+                
+            if normalized_r > 0.5:
                 if x < xmin:
                     xmin = x
                 if y < ymin:
