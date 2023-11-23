@@ -1,8 +1,16 @@
 import video
 import tracking
 import os
+import pattern
 
 video.decomposeVideo("Original.avi", "original_frames", 400)
+
+# Probably collect frames here?
+size_block = 20
+num_candidates = 100
+frame_01 = "frame0000.jpg"
+candidates = pattern.collect_candidates(frame_1, size_block, num_candidates, )
+
 
 for file in os.listdir("original_frames"):
     tracking.find_pen(file)
