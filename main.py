@@ -11,11 +11,15 @@ num_candidates = 100
 overlap_size = 5
 frame = "frame0216.jpg"
 
-first_coords = tracking.find_pen("frame0000.jpg")
-x_coords = tracking.find_pen_ssd(first_coords)
+first_coord = tracking.find_pen("frame0000.jpg")
+x_coords = tracking.find_pen_ssd(first_coord)
+print(x_coords)
 
 candidates = pattern.find_candidates(frame, size_block, num_candidates)
-candidates = candidates + pattern.find_candidates_second_area(frame, size_block, num_candidates)
 pattern.texture_match(frame,candidates,overlap_size,size_block)
 
-video.composeVideo("pattern_matched", "new.avi", 15)
+for index, pic in enumerate(os.listdir("original_frames")):
+    print(index)
+    pattern.write_in_texture(pic, "frame0202.jpg", x_coords[index])
+
+video.composeVideo("new_frames", "new.avi", 15)

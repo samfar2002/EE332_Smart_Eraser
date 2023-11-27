@@ -47,4 +47,13 @@ def texture_match(input_frame,candidates,overlap_size,size_block):
                     current_ssd = ssd; 
             image[v:v+size_block,u:u+size_block,:] = candidates[winner]
     cv2.imwrite("pattern_matched\\" + input_frame, image) 
+
+
+def write_in_texture(input_frame, pattern_frame, x_coord):
+    image = cv2.imread("original_frames\\" + input_frame)
+    pattern = cv2.imread("pattern_matched\\" + pattern_frame)
+    if x_coord < 290:
+        section = pattern[60:130, x_coord:290, :]
+        image[60:130, x_coord:290, :] = section
+        cv2.imwrite("new_frames\\" + input_frame, image)
             

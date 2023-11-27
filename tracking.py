@@ -43,7 +43,7 @@ def find_pen_ssd(first_coords):
     ref_image = images[0][y1:y2, x1:x2]
     ref_image1 = images[0][y1:y2, x1:x2]
     x_coords = []
-    x_coords.append(np.round((x1+x2)/2))
+    x_coords.append(int(np.round((x1+x2)/2)))
     i = 1
     for image in images[1:]:
         ssd_min = 100000000
@@ -59,7 +59,7 @@ def find_pen_ssd(first_coords):
         x2 = x2 + ufin
         y1 = y1 + vfin
         y2 = y2 + vfin
-        x_coords.append(np.round((x1+x2)/2))
+        x_coords.append(int(np.round((x1+x2)/2)))
         ref_image = image[y1:y2, x1:x2]
         cv2.rectangle(image,(x1, y1), (x2, y2), (0,0,255))
         zeros = 4 - len(str(i))
@@ -69,8 +69,8 @@ def find_pen_ssd(first_coords):
     return x_coords
 
 
-def find_textures_to_replace(image, x_cord):
-    image = cv2.imread("original_frames/" + input_frame)
+def find_textures_to_replace(input_frame, x_cord):
+    image = cv2.imread("original_frames\\" + input_frame)
     rows, cols, license = np.shape(image)
     y_values = np.array([])
     for y in range(60,rows):
