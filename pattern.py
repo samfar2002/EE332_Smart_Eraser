@@ -25,8 +25,8 @@ def Compute_SSD(A,B):
     s = np.sum((A[:,:,0:3]-B[:,:,0:3])**2)
     return s 
 
-def texture_match(frame,candidates,overlap_size,size_block):
-    image = cv2.imread("original_frames\\" + frame)
+def texture_match(input_frame,candidates,overlap_size,size_block):
+    image = cv2.imread("original_frames/" + input_frame)
     rows, cols, license = np.shape(image)
     rows_c, cols_c, license_c, num = np.shape(candidates)
     for v in range(60,130,size_block):
