@@ -9,12 +9,13 @@ video.decomposeVideo("Original.avi", "original_frames", 400)
 size_block = 20
 num_candidates = 100
 overlap_size = 5
-frame_0 = "frame0000.jpg"
-candidates = pattern.find_candidates(frame_0, size_block, num_candidates)
+frame = "frame0216.jpg"
 
 first_coords = tracking.find_pen("frame0000.jpg")
 x_coords = tracking.find_pen_ssd(first_coords)
 
-pattern.texture_match("frame0000.jpg",candidates,overlap_size,size_block)
+candidates = pattern.find_candidates(frame, size_block, num_candidates)
+candidates = candidates + pattern.find_candidates_second_area(frame, size_block, num_candidates)
+pattern.texture_match(frame,candidates,overlap_size,size_block)
 
-video.composeVideo("original_frames", "result.avi", 15)
+video.composeVideo("pattern_matched", "new.avi", 15)

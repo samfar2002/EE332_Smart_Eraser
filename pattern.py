@@ -18,8 +18,6 @@ def find_candidates(input_frame, size_block, num_candidates):
         y2 = y1 + size_block
         current_candidate = image[y1:y2,x1:x2,:]
         candidates.append(current_candidate)
-    for index, candidate in enumerate(candidates):
-        cv2.imwrite("candidates\\c"+str(index)+".jpg", candidate)
     return candidates 
 
 def Compute_SSD(A,B):
@@ -38,7 +36,6 @@ def texture_match(input_frame,candidates,overlap_size,size_block):
             winner = 0; 
             current_ssd = math.inf 
             for i in range(len(candidates)):
-                print(i)
                 cand = candidates[i]
                 cand_left_overlap = cand[:,0:overlap_size]
                 cand_top_overlap = cand[0:overlap_size,:]
@@ -49,5 +46,5 @@ def texture_match(input_frame,candidates,overlap_size,size_block):
                     winner = i
                     current_ssd = ssd; 
             image[v:v+size_block,u:u+size_block,:] = candidates[winner]
-    cv2.imwrite("Test.jpg", image) 
+    cv2.imwrite("pattern_matched\\" + input_frame, image) 
             
