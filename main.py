@@ -15,3 +15,5 @@ first_coords = tracking.find_pen("frame0000.jpg")
 x_coords = tracking.find_pen_ssd(first_coords)
 
 video.composeVideo("original_frames", "result.avi", 15)
+
+pattern.entire_pattern()
