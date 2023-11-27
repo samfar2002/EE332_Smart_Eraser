@@ -9,7 +9,7 @@ video.decomposeVideo("Original.avi", "original_frames", 400)
 size_block = 20
 num_candidates = 100
 frame_0 = "frame0000.jpg"
-candidates = pattern.find_candidates(frame_0, size_block, num_candidates, )
+candidates = pattern.find_candidates(frame_0, size_block, num_candidates)
 
 first_coords = tracking.find_pen("frame0000.jpg")
 x_coords = tracking.find_pen_ssd(first_coords)
