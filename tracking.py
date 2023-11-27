@@ -31,8 +31,8 @@ def find_pen(input_frame):
     
     cv2.rectangle(image, (xmin, ymin), (xmax, ymax), (255,255,255))
     cv2.imwrite("original_frames\\" + input_frame, image)
-
-    return int((xmin + xmax)/2)
+    xave = int((xmin + xmax)/2)
+    return xmin, xmax, xave
 
 def find_textures_to_replace(image, x_cord):
     image = cv2.imread("original_frames/" + input_frame)
