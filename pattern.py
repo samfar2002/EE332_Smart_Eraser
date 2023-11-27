@@ -4,7 +4,7 @@ import numpy as np
 import math
 
 def find_candidates(input_frame, size_block, num_candidates):
-    image = cv2.imread("original_frames/" + input_frame)
+    image = cv2.imread("original_frames\\" + input_frame)
     rows, cols, license = np.shape(image)
     candidates = np.empty([size_block, size_block, license, num_candidates])
     y_max = rows - size_block
@@ -26,11 +26,11 @@ def Compute_SSD(A,B):
     return s 
 
 def texture_match(frame,candidates,overlap_size,size_block):
-    image = cv2.imread("original_frames/" + input_frame)
+    image = cv2.imread("original_frames\\" + frame)
     rows, cols, license = np.shape(image)
     rows_c, cols_c, license_c, num = np.shape(candidates)
-    for v in range(74,126,size_block):
-        for u in range (59,290,size_block):
+    for v in range(60,130,size_block):
+        for u in range (50,290,size_block):
             frame_left = image[v:v+size_block,u-size_block:u,:]
             frame_top = image[v-size_block:v,u:u+size_block,:]
             left_overlap_r = frame_left[:,size_block-overlap_size:] 
@@ -45,7 +45,7 @@ def texture_match(frame,candidates,overlap_size,size_block):
                 ssd_2 = Compute_SSD(top_overlap_r, cand_top_overlap)
                 ssd = ssd_1 + ssd_2
                 if ssd < current_ssd:
-                    winner = i;
+                    winner = i
                     current_ssd = ssd; 
             image[v:v+size_block,u:u+size_block,:] = candidates[:,:,:,i]
     cv2.imwrite("Test.jpg", image) 
