@@ -6,19 +6,20 @@ import math
 def find_candidates(input_frame, size_block, num_candidates):
     image = cv2.imread("original_frames\\" + input_frame)
     rows, cols, license = np.shape(image)
-    candidates = np.empty([size_block, size_block, license, num_candidates])
+    candidates = []
     y_max = rows - size_block
     x_max = cols - size_block 
 
     for i in range(num_candidates):
-        x1 = random.randint(0,x_max)
-        y1 = random.randint(0,y_max)
+        x1 = random.randint(50,290-size_block)
+        y1 = random.randint(130,220-size_block)
 
         x2 = x1 + size_block
         y2 = y1 + size_block
         current_candidate = image[y1:y2,x1:x2,:]
-        candidates[:,:,:,i] = current_candidate
-    candidates = candidates.astype(int)
+        candidates.append(current_candidate)
+    for index, candidate in enumerate(candidates):
+        cv2.imwrite("candidates\\c"+str(index)+".jpg", candidate)
     return candidates 
 
 def Compute_SSD(A,B):
@@ -28,7 +29,6 @@ def Compute_SSD(A,B):
 def texture_match(input_frame,candidates,overlap_size,size_block):
     image = cv2.imread("original_frames/" + input_frame)
     rows, cols, license = np.shape(image)
-    rows_c, cols_c, license_c, num = np.shape(candidates)
     for v in range(60,130,size_block):
         for u in range (50,290,size_block):
             frame_left = image[v:v+size_block,u-size_block:u,:]
@@ -37,8 +37,9 @@ def texture_match(input_frame,candidates,overlap_size,size_block):
             top_overlap_r = frame_top[size_block-overlap_size:,:]
             winner = 0; 
             current_ssd = math.inf 
-            for i in range(num):
-                cand = candidates[:,:,:,i]
+            for i in range(len(candidates)):
+                print(i)
+                cand = candidates[i]
                 cand_left_overlap = cand[:,0:overlap_size]
                 cand_top_overlap = cand[0:overlap_size,:]
                 ssd_1 = Compute_SSD(left_overlap_r,cand_left_overlap)
@@ -47,6 +48,6 @@ def texture_match(input_frame,candidates,overlap_size,size_block):
                 if ssd < current_ssd:
                     winner = i
                     current_ssd = ssd; 
-            image[v:v+size_block,u:u+size_block,:] = candidates[:,:,:,i]
+            image[v:v+size_block,u:u+size_block,:] = candidates[winner]
     cv2.imwrite("Test.jpg", image) 
             
