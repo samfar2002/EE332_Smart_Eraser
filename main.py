@@ -6,8 +6,8 @@ import pattern
 video.decomposeVideo("Original.avi", "original_frames", 400)
 
 # Probably collect frames here?
-size_block = 20
-num_candidates = 100
+size_block = 40
+num_candidates = 1000
 overlap_size = 5
 frame = "frame0216.jpg"
 
