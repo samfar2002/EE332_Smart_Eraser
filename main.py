@@ -13,13 +13,12 @@ frame = "frame0216.jpg"
 
 first_coord = tracking.find_pen("frame0000.jpg")
 x_coords = tracking.find_pen_ssd(first_coord)
-print(x_coords)
 
 candidates = pattern.find_candidates(frame, size_block, num_candidates)
 pattern.texture_match(frame,candidates,overlap_size,size_block)
 
 for index, pic in enumerate(os.listdir("original_frames")):
-    print(index)
+    print("Writing image", index, "...")
     pattern.write_in_texture(pic, "frame0202.jpg", x_coords[index])
 
 video.composeVideo("new_frames", "new.avi", 15)

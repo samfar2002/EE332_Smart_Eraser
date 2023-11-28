@@ -61,7 +61,7 @@ def find_pen_ssd(first_coords):
         y2 = y2 + vfin
         x_coords.append(int(np.round((x1+x2)/2)))
         ref_image = image[y1:y2, x1:x2]
-        cv2.rectangle(image,(x1, y1), (x2, y2), (0,0,255))
+        cv2.rectangle(image,(x1, y1), (x2, y2), (255,255,255))
         zeros = 4 - len(str(i))
         cv2.imwrite('original_frames\\frame' + "0"*zeros + str(i) + '.jpg', image)
         i += 1
