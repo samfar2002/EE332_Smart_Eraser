@@ -12,7 +12,7 @@ def find_candidates(input_frame, size_block, num_candidates):
 
     for i in range(num_candidates):
         x1 = random.randint(50,290-size_block)
-        y1 = random.randint(0,30)
+        y1 = random.randint(0,60-size_block)
 
         x2 = x1 + size_block
         y2 = y1 + size_block
@@ -41,8 +41,8 @@ def Compute_SSD(A,B):
 def texture_match(input_frame,candidates,overlap_size,size_block):
     image = cv2.imread("original_frames/" + input_frame)
     rows, cols, license = np.shape(image)
-    for v in range(60,130,size_block):
-        for u in range (50,290,size_block):
+    for v in range(74,126,size_block):
+        for u in range (59,290,size_block):
             frame_left = image[v:v+size_block,u-size_block:u,:]
             frame_top = image[v-size_block:v,u:u+size_block,:]
             left_overlap_r = frame_left[:,size_block-overlap_size:] 
@@ -55,11 +55,11 @@ def texture_match(input_frame,candidates,overlap_size,size_block):
                 cand_top_overlap = cand[0:overlap_size,:]
                 ssd_1 = Compute_SSD(left_overlap_r,cand_left_overlap)
                 ssd_2 = Compute_SSD(top_overlap_r, cand_top_overlap)
-                ssd = ssd_1 + 3*ssd_2 # Multiply by scaling factor to favor minimizing SSD going up and down
+                ssd = ssd_1 + 5*ssd_2 # Multiply by scaling factor to favor minimizing SSD going up and down
                 if ssd < current_ssd:
                     winner = i
                     current_ssd = ssd; 
-            image[v:v+size_block,u:u+size_block,:] = candidates[winner] * 1.1 # Multuply by brightening factor here
+            image[v:v+size_block,u:u+size_block,:] = candidates[winner] # * 1.1 # Multuply by brightening factor here
     cv2.imwrite("pattern_matched\\" + input_frame, image) 
 
 
