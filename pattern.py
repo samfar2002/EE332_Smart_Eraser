@@ -12,7 +12,7 @@ def find_candidates(input_frame, size_block, num_candidates):
 
     for i in range(num_candidates):
         x1 = random.randint(50,290-size_block)
-        y1 = random.randint(130,220-size_block)
+        y1 = random.randint(0,30)
 
         x2 = x1 + size_block
         y2 = y1 + size_block
