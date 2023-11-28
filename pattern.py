@@ -65,7 +65,7 @@ def texture_match(input_frame,candidates,overlap_size,size_block):
 
 def write_in_texture(input_frame, pattern_frame, x_coord):
     image = cv2.imread("original_frames\\" + input_frame)
-    pattern = cv2.imread("pattern_matched\\" + pattern_frame)
+    pattern = cv2.imread(pattern_frame)
     if x_coord < 290:
         section = pattern[60:130, x_coord:290, :]
         image[60:130, x_coord:290, :] = section

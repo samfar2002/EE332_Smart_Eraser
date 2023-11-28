@@ -19,6 +19,6 @@ pattern.texture_match(frame,candidates,overlap_size,size_block)
 
 for index, pic in enumerate(os.listdir("original_frames")):
     print("Writing image", index, "...")
-    pattern.write_in_texture(pic, "frame0202.jpg", x_coords[index])
+    pattern.write_in_texture(pic, "FinalTexture.jpg", x_coords[index])
 
 video.composeVideo("new_frames", "new.avi", 15)
