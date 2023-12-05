@@ -18,6 +18,9 @@ def find_candidates(input_frame, size_block, num_candidates):
         y2 = y1 + size_block
         current_candidate = image[y1:y2,x1:x2,:]
         candidates.append(current_candidate)
+    
+    for index, cand in enumerate(candidates):
+        cv2.imwrite("candidates\\" + str(index) + ".jpg", cand)
     return candidates 
 
 def Compute_SSD(A,B):
@@ -35,8 +38,7 @@ def Compute_SSD(A,B):
     s2 = np.sum((A2[:,:,0:3]-B2[:,:,0:3])**2)
     
     s = s1
-    return s 
-    return s 
+    return s
 
 def texture_match(input_frame,candidates,overlap_size,size_block):
     image = cv2.imread("original_frames/" + input_frame)
@@ -63,11 +65,17 @@ def texture_match(input_frame,candidates,overlap_size,size_block):
     cv2.imwrite("pattern_matched\\" + input_frame, image) 
 
 
-def write_in_texture(input_frame, pattern_frame, x_coord):
+def write_in_texture(input_frame, pattern_frame, x_coord, lines):
     image = cv2.imread("original_frames\\" + input_frame)
+    height, width, color = np.shape(image)
     pattern = cv2.imread(pattern_frame)
     if x_coord < 290:
         section = pattern[60:130, x_coord:290, :]
         image[60:130, x_coord:290, :] = section
-        cv2.imwrite("new_frames\\" + input_frame, image)
+    
+    num = len([x for x in lines if x>x_coord])
+    text = "Covered lines: " + str(num)
+    cv2.putText(image, text, (10, height-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0,150), 1, cv2.LINE_AA)
+    
+    cv2.imwrite("new_frames\\" + input_frame, image)
             
